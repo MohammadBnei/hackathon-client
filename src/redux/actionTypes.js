@@ -1,0 +1,8 @@
+export const AUTH_USER = 'AUTH_USER'
+export const UNAUTH_USER = 'UNAUTH_USER'
+export const AUTH_ERROR = 'AUTH_ERROR'
+
+export const GET_USER_PROFILE = 'GET_USER_PROFILE'
+export const USER_LOGOUT = 'USER_LOGOUT'
+
+export const UPDATE_DASHBOARD_DISPLAY = 'UPDATE_DASHBOARD_DISPLAY'
