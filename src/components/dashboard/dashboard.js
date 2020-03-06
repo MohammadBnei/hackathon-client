@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import clsx from 'clsx'
+
 import { makeStyles } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Drawer from '@material-ui/core/Drawer'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
-import List from '@material-ui/core/List'
 import Typography from '@material-ui/core/Typography'
 import Divider from '@material-ui/core/Divider'
 import IconButton from '@material-ui/core/IconButton'
@@ -13,13 +13,18 @@ import Container from '@material-ui/core/Container'
 import MenuIcon from '@material-ui/icons/Menu'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
-import { mainListItems, secondaryListItems } from './listItems'
 import { useDispatch, useSelector } from 'react-redux'
+
+import { MainListItems, SecondaryListItems } from './listItems'
+
 import { signUserOut } from '../../redux/actions/auth'
+import { fetchUser } from '../../redux/actions/user'
 import { push } from 'connected-react-router'
-import { UPDATE_DASHBOARD_DISPLAY } from '../../redux/actionTypes'
-import { MY_ACCOUNT } from '../../redux/enums'
-import SignUp from '../user/signUp'
+import { MY_ACCOUNT, TEAMS, AGENTS } from '../../redux/enums'
+import { Paper } from '@material-ui/core'
+import UpdateUser from '../user/update'
+import Teams from '../team/teams'
+import Agents from '../agent/agents'
 
 const drawerWidth = 240
 
@@ -105,8 +110,25 @@ const useStyles = makeStyles(theme => ({
 export default function Dashboard () {
     const classes = useStyles()
 
-    const { authenticated, dashboardDisplay, authenticatedUser } = useSelector(({ auth: { authenticated }, user, dashboard: { display } }) => ({ authenticated, authenticatedUser: user, dashboardDisplay: display }))
+    const { authenticated, dashboardDisplay, user } = useSelector(({ auth: { authenticated }, dashboard: { display }, user }) => ({ authenticated, dashboardDisplay: display, user }))
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        changeDisplay()
+    }, [dashboardDisplay])
+
+    const changeDisplay = () => {
+        switch (dashboardDisplay) {
+        case MY_ACCOUNT:
+            return <UpdateUser />
+        case TEAMS:
+            return <Teams />
+        case AGENTS:
+            return <Agents />
+        default:
+            return null
+        }
+    }
 
     const logout = () => {
         dispatch(signUserOut())
@@ -122,6 +144,8 @@ export default function Dashboard () {
     if (!authenticated) {
         dispatch(push('/signin'))
         return null
+    } else if (!user.email) {
+        dispatch(fetchUser())
     }
 
     return (
@@ -159,16 +183,16 @@ export default function Dashboard () {
                     </IconButton>
                 </div>
                 <Divider />
-                <List>{mainListItems(name => dispatch({ type: UPDATE_DASHBOARD_DISPLAY, payload: name }))}</List>
+                <MainListItems />
                 <Divider />
-                <List>{secondaryListItems(name => dispatch({ type: UPDATE_DASHBOARD_DISPLAY, payload: name }))}</List>
+                <SecondaryListItems />
             </Drawer>
             <main className={classes.content}>
                 <div className={classes.appBarSpacer} />
                 <Container maxWidth="lg" className={classes.container}>
-                    {dashboardDisplay === MY_ACCOUNT && (
-                        <SignUp authenticatedUser={authenticatedUser}/>
-                    )}
+                    <Paper elevation={3}>
+                        {changeDisplay()}
+                    </Paper>
                 </Container>
             </main>
         </div>

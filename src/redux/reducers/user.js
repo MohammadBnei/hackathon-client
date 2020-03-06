@@ -4,7 +4,6 @@ import {
 } from '../actionTypes'
 
 const INITIAL_STATE = {
-    updateProfileFailMsg: '',
     name: {},
     capacities: [],
     email: '',
