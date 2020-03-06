@@ -1,10 +1,20 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Paper, Grid, Button } from '@material-ui/core'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import Agent from './agent'
+import CreateAgent from './createAgent'
+import { getUsers } from '../../redux/actions/agents'
 
 const Agents = () => {
     const { agents } = useSelector(({ agents }) => ({ agents }))
+
+    const dispatch = useDispatch()
+
+    const [toggleAddAgentModal, setToggleAddAgentModal] = useState(false)
+
+    useEffect(() => {
+        dispatch(getUsers())
+    }, [])
 
     return (
         <Paper>
@@ -12,9 +22,8 @@ const Agents = () => {
             <Grid container spacing={3}>
                 {
                     agents.map((_, idx) => {
-                        console.log({ idx })
                         return (
-                            <Grid item xs={12} key={idx}>
+                            <Grid item xs={6} key={idx}>
                                 <Agent agentId={idx}/>
                             </Grid>
                         )
@@ -22,10 +31,15 @@ const Agents = () => {
                     )
                 }
                 <Grid item xs={12} >
-                    <Button variant="contained" color="primary">
+                    <Button onClick={() => setToggleAddAgentModal(true)} variant="contained" color="primary">
                         Create an agent
                     </Button>
                 </Grid>
+                {toggleAddAgentModal && (
+                    <Grid item xs={12} >
+                        <CreateAgent toggleView={() => setToggleAddAgentModal(false)} />
+                    </Grid>
+                )}
             </Grid>
         </Paper>
     )

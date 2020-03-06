@@ -28,25 +28,25 @@ export const MainListItems = () => {
         <List>
             <ListItem button onClick={() => updateDashboardDisplay(ALL_PROJECTS)}>
                 <ListItemIcon>
-                    <PeopleIcon />
+                    <DynamicFeedIcon />
                 </ListItemIcon>
                 <ListItemText primary="All Projects" />
             </ListItem>
             <ListItem button onClick={() => updateDashboardDisplay(MY_PROJECTS)}>
                 <ListItemIcon>
-                    <DynamicFeedIcon />
+                    <AssignmentIcon />
                 </ListItemIcon>
                 <ListItemText primary="My Project" />
             </ListItem>
             <ListItem button onClick={() => updateDashboardDisplay(TEAMS)}>
                 <ListItemIcon>
-                    <ContactsIcon />
+                    <PeopleIcon />
                 </ListItemIcon>
                 <ListItemText primary="Teams" />
             </ListItem>
             <ListItem button onClick={() => updateDashboardDisplay(AGENTS)}>
                 <ListItemIcon>
-                    <AssignmentIcon />
+                    <ContactsIcon />
                 </ListItemIcon>
                 <ListItemText primary="Agents" />
             </ListItem>

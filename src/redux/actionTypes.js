@@ -8,6 +8,7 @@ export const GET_USER_PROFILE = 'GET_USER_PROFILE'
 export const USER_LOGOUT = 'USER_LOGOUT'
 
 export const ADD_USER = 'ADD_USER'
+export const ADD_USERS = 'ADD_USERS'
 
 export const CREATE_TEAM = 'CREATE_TEAM'
 export const DELETE_TEAM = 'DELETE_TEAM'

@@ -17,14 +17,14 @@ export function deleteTeam (teamId) {
     }
 }
 
-export function addMember (teams) {
+export function addMember (member, teamId) {
     return (dispatch) => {
-        dispatch({ type: ADD_MEMBER, payload: teams })
+        dispatch({ type: ADD_MEMBER, payload: { member: member[0], teamId } })
     }
 }
 
-export function removeMember (teams) {
+export function removeMember (memberId, teamId) {
     return (dispatch) => {
-        dispatch({ type: REMOVE_MEMBER, payload: teams })
+        dispatch({ type: REMOVE_MEMBER, payload: { memberId, teamId } })
     }
 }

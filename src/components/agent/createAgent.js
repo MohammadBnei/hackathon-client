@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useReducer } from 'react'
 
 import Avatar from '@material-ui/core/Avatar'
@@ -53,7 +54,7 @@ const initialState = {
     capacities: []
 }
 
-export default function CreateAgent () {
+export default function CreateAgent ({ toggleView }) {
     const classes = useStyles()
 
     const dispatch = useDispatch()
@@ -209,9 +210,18 @@ export default function CreateAgent () {
                         onClick={() => {
                             dispatch(signUserUp(user))
                             dispatch(addUser(user))
+                            toggleView()
                         }}
                     >
                                     Create
+                    </Button>
+                    <Button
+                        variant="contained"
+                        color="default"
+                        className={classes.submit}
+                        onClick={toggleView}
+                    >
+                                    Cancel
                     </Button>
                 </div>
             </div>

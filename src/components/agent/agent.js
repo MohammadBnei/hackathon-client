@@ -48,19 +48,21 @@ export default function Agent ({ agentId }) {
                 <div className={classes.form} noValidate>
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={6}>
-                            {agent.name.firstName}
+                            First name : {
+                                agent.name?.firstName // eslint-disable-line
+                            } 
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            {agent.name.lastName}
+                           Last name :  {agent.name?.lastName}
                         </Grid>
                         <Grid item xs={12}>
-                            {agent.name.email}
+                            Email : {agent.email}
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            {agent.status.role}
+                            Role : {agent.status?.role}
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            {agent.status.competences.join(', ')}
+                            Competences : {agent.status.competences.join(', ')}
                         </Grid>
                     </Grid>
                 </div>

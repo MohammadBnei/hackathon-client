@@ -6,13 +6,13 @@ import { useSelector, useDispatch } from 'react-redux'
 import { createTeam as createTeamAction } from '../../redux/actions/team'
 
 const Teams = () => {
-    const { teams } = useSelector(({ teams }) => ({ teams: teams.teams }))
+    const { teams } = useSelector(({ teams }) => ({ teams }))
 
     const dispatch = useDispatch()
 
     const createTeam = () => {
         dispatch(createTeamAction({
-            name: '',
+            name: 'New team',
             members: []
         }))
     }
@@ -23,7 +23,6 @@ const Teams = () => {
             <Grid container spacing={3}>
                 {
                     teams.map((team, idx) => {
-                        console.log({ idx })
                         return (
                             <Grid item xs={12} key={idx}>
                                 <Team teamId={idx}/>
